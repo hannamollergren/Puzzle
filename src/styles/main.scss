@@ -1,0 +1,102 @@
+// Global scss
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: $color-black;
+}
+
+body {
+  font-family: $font-family-primary;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+// TODO: Add to a seperate file
+.puzzle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: $color-light-blue;
+  height: 100vh;
+
+  @include mobile {
+    padding: 16px;
+    align-items: normal;
+    justify-content: start;
+  }
+
+  &__message {
+    font-size: 1.5rem;
+    color: $color-black;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: $color-light-purple;
+    border-radius: 0.25rem;
+
+    @include mobile {
+      padding: 0.5rem;
+    }
+  }
+
+  &__title {
+    color: $color-dark-purple;
+  }
+}
+
+.board {
+  display: grid;
+  gap: 0.5rem;
+  margin: 2rem 0;
+
+  @include mobile {
+    gap: 0.25rem;
+  }
+
+  &__tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background-color: $color-light-purple;
+    color: $color-purple;
+    font-size: 1.5rem;
+    cursor: pointer;
+
+    @include mobile {
+      width: auto;
+      height: auto;
+      font-size: 1rem;
+      padding: 0.5rem 0;
+      min-width: 2rem;
+    }
+
+    &:hover {
+      background-color: $color-purple;
+      color: $color-light-purple;
+    }
+  }
+}
+
+.controls {
+  &__button {
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: $color-dark-purple;
+    color: $color-white;
+    border: none;
+    border-radius: 0.25rem;
+    transition: background-color 0.5s;
+    font-family: $font-family-primary;
+    font-weight: bold;
+
+    &:hover {
+      background-color: $color-purple;
+      color: $color-light-purple;
+    }
+  }
+}

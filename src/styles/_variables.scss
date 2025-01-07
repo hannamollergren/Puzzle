@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@100&family=Open+Sans:wght@300&display=swap');
+
+/* Font family */
+$font-family-primary: 'Open Sans', sans-serif;
+
+/* Colors */
+$color-black						: #333333;
+$color-white						: #ffffff;
+$color-light-blue                   : #f1f8fb;
+$color-light-purple                 : #f1ebfe;
+$color-purple                       : #af8cf8;
+$color-dark-purple                  : #4d2b9a;
+
+/* Font sizes */
+$fontsize-small 					: 12px;
+$fontsize-normal					: 16px;
+$fontsize-large 					: 24px;
+$fontsize-h1			 		    : 36px;
+
+/* Breakpoint */
+$mobile-width						: 640px;
