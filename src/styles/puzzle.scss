@@ -1,0 +1,32 @@
+.puzzle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: $color-light-blue;
+  height: 100vh;
+
+  @include mobile {
+    padding: 16px;
+    align-items: normal;
+    justify-content: start;
+  }
+
+  &__message {
+    font-size: 1.5rem;
+    color: $color-black;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: $color-light-purple;
+    border-radius: 0.25rem;
+
+    @include mobile {
+      padding: 0.5rem;
+    }
+  }
+
+  &__title {
+    color: $color-dark-purple;
+  }
+}

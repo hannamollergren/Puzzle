@@ -8,7 +8,6 @@ interface TileProps {
 }
 
 const Tile = ({ index, value, handleTileClick, rowIndex }: TileProps) => {
-  console.log(value);
   return (
     <div
       className="board__tile"

@@ -3,4 +3,6 @@
 @import '_variables.scss';
 @import 'main.scss';
 
-//TODO: Change import to use
+@import 'puzzle.scss';
+@import 'board.scss';
+@import 'controls.scss';
