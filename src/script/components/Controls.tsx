@@ -1,6 +1,6 @@
 import React from "react";
 
-interface ControlsProps {
+type ControlsProps = {
   resetGame: () => void;
   restartText: string;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import Tile from "./Tile.tsx";
 
-interface BoardProps {
+type BoardProps = {
   tiles: number[][];
   handleTileClick: (index: number, value: number, rowIndex: number) => any;
   columns: number;

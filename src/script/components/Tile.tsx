@@ -1,6 +1,6 @@
 import React from "react";
 
-interface TileProps {
+type TileProps = {
   index: number;
   value: number;
   handleTileClick: (index: number, value: number, rowIndex: number) => any;
@@ -11,7 +11,7 @@ const Tile = ({ index, value, handleTileClick, rowIndex }: TileProps) => {
   return (
     <div
       className="board__tile"
-      key={index}
+      key={value}
       onClick={() => handleTileClick(index, value, rowIndex)}
     >
       {value !== 0 ? value : ""}

@@ -11,6 +11,6 @@ export const shuffleTiles = (values: number[], rows: number, columns: number) =>
 };
 
 // export const isPuzzleSolved = (tiles: number[]): boolean => {
-//   // TODO: Fix function
+//   // TODO: Fix function 
 //   return tiles.every((tile, index) => tile === index + 1);
 // };

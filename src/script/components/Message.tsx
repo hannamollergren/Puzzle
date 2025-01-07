@@ -1,6 +1,6 @@
 import React from "react";
 
-interface MessageProps {
+type MessageProps = {
   successText: string;
 }
 
