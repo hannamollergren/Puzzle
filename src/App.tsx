@@ -25,47 +25,69 @@ const App = () => {
 
   const handleTileClick = (index: number, value: number, rowIndex: number) => {
     if (isSolved) return;
+
     const clickedPosition = { clickedRow: rowIndex, clickedCol: index };
     const zeroPosition = findZeroPosition(0);
 
     if (!clickedPosition || !zeroPosition) {
-      return; // No position is found
+      return;
     }
 
     const { clickedRow, clickedCol } = clickedPosition;
     const { rowIndex: zeroRow, colIndex: zeroCol } = zeroPosition;
 
-    const isSameRow =
-      clickedRow === zeroRow && Math.abs(clickedCol - zeroCol) === 1;
-    const isSameColumn =
-      clickedCol === zeroCol && Math.abs(clickedRow - zeroRow) === 1;
+    // Check if the clicked tile is in the same row or column as the empty space
+    const isSameRow = clickedRow === zeroRow;
+    const isSameColumn = clickedCol === zeroCol;
 
-    if (isSameRow || isSameColumn) {
-      const newTiles = tilesArray ? tilesArray.map((row) => [...row]) : []; // Create a copy of the current array
+    const newTiles = tilesArray ? tilesArray.map((row) => [...row]) : [];
 
-      newTiles[zeroRow][zeroCol] = value; // Change tiles position
-      newTiles[clickedRow][clickedCol] = 0;
-
-      let copy = [...newTiles];
-      let tilesWithoutGrid: any = [];
-
-      copy.forEach((row) =>
-        row.forEach((element) => tilesWithoutGrid.push(element))
-      ); // Add all element into a array without grid
-
-      // Check if inital array is same as current array
-      isPuzzleSolved(initalTilesArray, tilesWithoutGrid);
-
-      setTilesWithoutGridArray(tilesWithoutGrid); // Set tiles array with out grid to be able to compare with the inital array
-      setTilesArray(newTiles);
+    if (isSameRow) {
+      if (clickedCol < zeroCol) {
+        // Shift tiles to the right
+        for (let i = zeroCol; i > clickedCol; i--) {
+          newTiles[clickedRow][i] = newTiles[clickedRow][i - 1];
+        }
+        newTiles[clickedRow][clickedCol] = 0; // Place empty space at the clicked position
+      } else if (clickedCol > zeroCol) {
+        // Shift tiles to the left
+        for (let i = zeroCol; i < clickedCol; i++) {
+          newTiles[clickedRow][i] = newTiles[clickedRow][i + 1];
+        }
+        newTiles[clickedRow][clickedCol] = 0;
+      }
     }
 
-    //TODO: Be able to move all tiles in same row if possible
+    if (isSameColumn) {
+      if (clickedRow < zeroRow) {
+        // Shift tiles down
+        for (let i = zeroRow; i > clickedRow; i--) {
+          newTiles[i][clickedCol] = newTiles[i - 1][clickedCol];
+        }
+        newTiles[clickedRow][clickedCol] = 0;
+      } else if (clickedRow > zeroRow) {
+        // Shift tiles up
+        for (let i = zeroRow; i < clickedRow; i++) {
+          newTiles[i][clickedCol] = newTiles[i + 1][clickedCol];
+        }
+        newTiles[clickedRow][clickedCol] = 0;
+      }
+    }
 
-    // TODO: Correct error message of unique child key in tile.tsx
+    // Flatten the newTiles array to tilesWithoutGridArray
+    let tilesWithoutGrid: any = [];
+    newTiles.forEach((row) =>
+      row.forEach((element) => tilesWithoutGrid.push(element))
+    );
 
-    // TODO: Responsive behavior if many columns
+    // Check if the initial array is the same as the current array
+    isPuzzleSolved(initalTilesArray, tilesWithoutGrid);
+
+    setTilesWithoutGridArray(tilesWithoutGrid); // Set tiles array without grid to be able to compare with the initial array
+    setTilesArray(newTiles); // Update the new tiles array after the move
   };
+
+  // TODO: Correct error message of unique child key in tile.tsx
 
   const findZeroPosition = (value: number) => {
     if (tilesArray) {
@@ -97,7 +119,7 @@ const App = () => {
   const handleSetTilesArray = (values) => {
     values.sort(() => Math.random() - 0.5); // Shuffle array
 
-    setTilesWithoutGridArray(values); // Set tiles array with out grid to be able to compare with the inital array
+    setTilesWithoutGridArray(values); // Set tiles array without grid to be able to compare with the inital array
 
     // Spliting value into different arrays based on value of rows prop
     const tiles: number[][] = Array.from({ length: rows }, (_, rowIndex) =>

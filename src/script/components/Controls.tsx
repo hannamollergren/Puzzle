@@ -3,7 +3,7 @@ import React from "react";
 type ControlsProps = {
   resetGame: () => void;
   restartText: string;
-}
+};
 
 const Controls = ({ resetGame, restartText }: ControlsProps) => {
   return (

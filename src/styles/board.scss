@@ -2,6 +2,7 @@
   display: grid;
   gap: 0.5rem;
   margin: 2rem 0;
+  overflow-y: scroll;
 
   @include mobile {
     gap: 0.25rem;
@@ -13,6 +14,7 @@
     align-items: center;
     width: 60px;
     height: 60px;
+
     background-color: $color-light-purple;
     color: $color-purple;
     font-size: 1.5rem;
