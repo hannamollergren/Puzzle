@@ -2,12 +2,24 @@ import React from "react";
 import Tile from "./Tile.tsx";
 
 type BoardProps = {
-  tiles: number[][];
-  handleTileClick: (index: number, value: number, rowIndex: number) => any;
   columns: number;
-}
+  handleTileClick: (index: number, value: number, rowIndex: number) => any;
+  initalTilesArray: number[];
+  tiles: number[][];
+  tilesArrayWithoutGridArray: number[];
+};
 
-const Board = ({ tiles, handleTileClick, columns }: BoardProps) => {
+const Board = ({
+  columns,
+  handleTileClick,
+  initalTilesArray,
+  tiles,
+  tilesArrayWithoutGridArray,
+}: BoardProps) => {
+  const correctPositions = initalTilesArray.map(
+    (value, index) => tilesArrayWithoutGridArray[index] === value
+  );
+  
   return (
     <div
       className="board"
@@ -16,10 +28,11 @@ const Board = ({ tiles, handleTileClick, columns }: BoardProps) => {
       {tiles.map((row, rowIndex) =>
         row.map((value, index) => (
           <Tile
-            index={index}
             handleTileClick={handleTileClick}
-            value={value}
+            index={index}
+            isCorrect={correctPositions[index]}
             rowIndex={rowIndex}
+            value={value}
           />
         ))
       )}

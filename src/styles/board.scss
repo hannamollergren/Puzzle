@@ -18,6 +18,11 @@
     font-size: 1.5rem;
     cursor: pointer;
 
+    &.correct {
+      background-color: $color-purple;
+      color: $color-light-purple;
+    }
+
     @include mobile {
       width: auto;
       height: auto;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import data from "./config/data";
-import { shuffleTiles, isPuzzleSolved } from "./utils/utils.tsx";
 import Board from "./script/components/Board.tsx";
 import Controls from "./script/components/Controls.tsx";
 import Message from "./script/components/Message.tsx";
@@ -8,12 +7,21 @@ import Message from "./script/components/Message.tsx";
 const { columns, newGameText, restartText, rows, successText, title } = data;
 
 const App = () => {
-  const [tiles, setTiles] = useState<number[][]>();
+  const [initalTilesArray, setInitalTilesArray] = useState<number[]>();
+  const [tilesArrayWithoutGridArray, setTilesWithoutGridArray] =
+    useState<number[]>();
+  const [tilesArray, setTilesArray] = useState<number[][]>();
   const [isSolved, setIsSolved] = useState<boolean>(false);
 
   useEffect(() => {
     handleSetTiles(); // Set default array
   }, []);
+
+  const isPuzzleSolved = (inital, current) => {
+    const compare = JSON.stringify(inital) === JSON.stringify(current);
+
+    compare && setIsSolved(true);
+  };
 
   const handleTileClick = (index: number, value: number, rowIndex: number) => {
     if (isSolved) return;
@@ -33,22 +41,35 @@ const App = () => {
       clickedCol === zeroCol && Math.abs(clickedRow - zeroRow) === 1;
 
     if (isSameRow || isSameColumn) {
-      const newTiles = tiles ? tiles.map((row) => [...row]) : []; // Create a copy of the current array
+      const newTiles = tilesArray ? tilesArray.map((row) => [...row]) : []; // Create a copy of the current array
+
       newTiles[zeroRow][zeroCol] = value; // Change tiles position
       newTiles[clickedRow][clickedCol] = 0;
 
-      setTiles(newTiles);
+      let copy = [...newTiles];
+      let tilesWithoutGrid: any = [];
+
+      copy.forEach((row) =>
+        row.forEach((element) => tilesWithoutGrid.push(element))
+      ); // Add all element into a array without grid
+
+      // Check if inital array is same as current array
+      isPuzzleSolved(initalTilesArray, tilesWithoutGrid);
+
+      setTilesWithoutGridArray(tilesWithoutGrid); // Set tiles array with out grid to be able to compare with the inital array
+      setTilesArray(newTiles);
     }
 
-	//TODO: Add function for correct position 
+    //TODO: Be able to move all tiles in same row if possible
 
-    // 	TODO:
-    // 	isPuzzleSolved(tiles);
+    // TODO: correct error message of unique child key in tile.tsx
+
+    // TODO: Responsive behavior if many columns
   };
 
   const findZeroPosition = (value: number) => {
-    if (tiles) {
-      const position = tiles
+    if (tilesArray) {
+      const position = tilesArray
         .map((row, rowIndex) => ({
           rowIndex,
           colIndex: row.indexOf(value),
@@ -67,7 +88,23 @@ const App = () => {
     const values = Array.from({ length: rows * columns - 1 }, (_, i) => i + 1); // Creates an array from config data
     values.push(0); //  Adding the empty tile
 
-    setTiles(shuffleTiles(values, rows, columns)); // Suffle array, sort and split into different arrays based on config data
+    const copy = [...values];
+
+    setInitalTilesArray(copy); // Set inital array to be able to compare with the current array
+    handleSetTilesArray(values);
+  };
+
+  const handleSetTilesArray = (values) => {
+    values.sort(() => Math.random() - 0.5); // Shuffle array
+
+    setTilesWithoutGridArray(values); // Set tiles array with out grid to be able to compare with the inital array
+
+    // Spliting value into different arrays based on value of rows prop
+    const tiles: number[][] = Array.from({ length: rows }, (_, rowIndex) =>
+      values.slice(rowIndex * columns, rowIndex * columns + columns)
+    );
+
+    setTilesArray(tiles);
   };
 
   const resetGame = () => {
@@ -80,9 +117,11 @@ const App = () => {
     <div className="puzzle">
       <h1 className="puzzle__title">{title}</h1>
       <Board
-        tiles={tiles || []}
-        handleTileClick={handleTileClick}
         columns={columns}
+        handleTileClick={handleTileClick}
+        initalTilesArray={initalTilesArray || []}
+        tiles={tilesArray || []}
+        tilesArrayWithoutGridArray={tilesArrayWithoutGridArray || []}
       />
       <Controls
         resetGame={resetGame}

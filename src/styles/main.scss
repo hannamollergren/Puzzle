@@ -10,4 +10,7 @@ body {
   font-family: $font-family-primary;
   font-size: 1rem;
   font-weight: bold;
+  overflow: auto;
+  padding: 2rem;
+  background-color: $color-light-blue;
 }

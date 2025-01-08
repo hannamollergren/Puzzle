@@ -1,10 +1,10 @@
 var data = {
   title: "React - n- puzzle",
-  restartText: "Reset",
+  restartText: "Shuffle",
   successText: "Wow! You made it, good job :)",
   newGameText: "New game",
-  rows: 4,
-  columns: 4,
+  rows: 2,
+  columns: 2,
 };
 
 module.exports = data;
