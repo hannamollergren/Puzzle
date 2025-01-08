@@ -23,7 +23,7 @@ const App = () => {
     compare && setIsSolved(true);
   };
 
-  const handleTileClick = (index: number, value: number, rowIndex: number) => {
+  const handleTileClick = (index: number, rowIndex: number) => {
     if (isSolved) return;
 
     const clickedPosition = { clickedRow: rowIndex, clickedCol: index };
@@ -86,8 +86,6 @@ const App = () => {
     setTilesWithoutGridArray(tilesWithoutGrid); // Set tiles array without grid to be able to compare with the initial array
     setTilesArray(newTiles); // Update the new tiles array after the move
   };
-
-  // TODO: Correct error message of unique child key in tile.tsx
 
   const findZeroPosition = (value: number) => {
     if (tilesArray) {

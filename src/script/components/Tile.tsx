@@ -1,7 +1,7 @@
 import React from "react";
 
 type TileProps = {
-  handleTileClick: (index: number, value: number, rowIndex: number) => any;
+  handleTileClick: (index: number, rowIndex: number) => any;
   index: number;
   isCorrect: boolean;
   rowIndex: number;
@@ -15,11 +15,13 @@ const Tile = ({
   rowIndex,
   value,
 }: TileProps) => {
+
+  // TODO: Fix error message of unique child key
   return (
     <div
       className={`board__tile ${isCorrect ? "correct" : ""}`}
       key={value}
-      onClick={() => handleTileClick(index, value, rowIndex)}
+      onClick={() => handleTileClick(index, rowIndex)}
     >
       {value !== 0 ? value : ""}
     </div>

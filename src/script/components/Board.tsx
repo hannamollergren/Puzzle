@@ -3,7 +3,7 @@ import Tile from "./Tile.tsx";
 
 type BoardProps = {
   columns: number;
-  handleTileClick: (index: number, value: number, rowIndex: number) => any;
+  handleTileClick: (index: number, rowIndex: number) => any;
   initalTilesArray: number[];
   tiles: number[][];
   tilesArrayWithoutGridArray: number[];
