@@ -2,7 +2,7 @@
   display: grid;
   gap: 0.5rem;
   margin: 2rem 0;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   @include mobile {
     gap: 0.25rem;
