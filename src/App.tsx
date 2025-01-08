@@ -62,7 +62,7 @@ const App = () => {
 
     //TODO: Be able to move all tiles in same row if possible
 
-    // TODO: correct error message of unique child key in tile.tsx
+    // TODO: Correct error message of unique child key in tile.tsx
 
     // TODO: Responsive behavior if many columns
   };

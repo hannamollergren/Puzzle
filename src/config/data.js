@@ -3,8 +3,8 @@ var data = {
   restartText: "Shuffle",
   successText: "Wow! You made it, good job :)",
   newGameText: "New game",
-  rows: 2,
-  columns: 2,
+  rows: 3,
+  columns: 3,
 };
 
 module.exports = data;
